@@ -117,7 +117,7 @@ selected_genre = st.sidebar.selectbox("🎭 Genre", ["All"] + genres)
 if "selected_movie" not in st.session_state:
     st.session_state.selected_movie = None
 
-# Auto reset when genre changes
+# 🔁 Auto reset when genre changes
 if "last_genre" not in st.session_state:
     st.session_state.last_genre = selected_genre
 
@@ -125,7 +125,7 @@ if st.session_state.last_genre != selected_genre:
     st.session_state.selected_movie = None
     st.session_state.last_genre = selected_genre
 
-# Surprise button
+# 🎲 Surprise button
 if st.sidebar.button("🎲 Surprise Me"):
     if selected_genre == "All":
         st.session_state.selected_movie = random.choice(movies)
@@ -136,7 +136,7 @@ if st.sidebar.button("🎲 Surprise Me"):
 
 selected_movie = st.session_state.selected_movie
 
-# ---------- IMAGE TO BASE64 ----------
+# ---------- IMAGE BASE64 ----------
 def get_image_base64(path):
     try:
         with open(path, "rb") as f:
