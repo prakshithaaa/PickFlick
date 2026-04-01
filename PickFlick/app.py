@@ -15,12 +15,11 @@ st.markdown("""
     padding: 15px;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
 }
 
 .movie-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 0 30px rgba(229, 9, 20, 1);
+    box-shadow: 0 0 30px red;
 }
 
 .movie-img {
@@ -117,7 +116,7 @@ selected_genre = st.sidebar.selectbox("🎭 Genre", ["All"] + genres)
 if "selected_movie" not in st.session_state:
     st.session_state.selected_movie = None
 
-# 🔁 Auto reset when genre changes
+# Reset when genre changes
 if "last_genre" not in st.session_state:
     st.session_state.last_genre = selected_genre
 
@@ -125,7 +124,7 @@ if st.session_state.last_genre != selected_genre:
     st.session_state.selected_movie = None
     st.session_state.last_genre = selected_genre
 
-# 🎲 Surprise button
+# 🎲 Surprise button (FIXED)
 if st.sidebar.button("🎲 Surprise Me"):
     if selected_genre == "All":
         st.session_state.selected_movie = random.choice(movies)
@@ -136,7 +135,7 @@ if st.sidebar.button("🎲 Surprise Me"):
 
 selected_movie = st.session_state.selected_movie
 
-# ---------- IMAGE BASE64 ----------
+# ---------- IMAGE FUNCTION ----------
 def get_image_base64(path):
     try:
         with open(path, "rb") as f:
@@ -146,11 +145,13 @@ def get_image_base64(path):
 
 # ---------- FILTER ----------
 filtered_movies = []
+
 for movie in movies:
     if selected_genre != "All" and selected_genre not in movie["genre"]:
         continue
     filtered_movies.append(movie)
 
+# Apply surprise AFTER filtering
 if selected_movie:
     filtered_movies = [selected_movie]
 
